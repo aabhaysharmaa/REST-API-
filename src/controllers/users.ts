@@ -23,5 +23,12 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
 	}
 }
 
+export const updateuser = async (req: express.Request, res: express.Response) => {
+	try {
 
+	} catch (error) {
+		console.log(error)
+	}
+
+}
 
