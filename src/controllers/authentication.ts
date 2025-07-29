@@ -1,7 +1,6 @@
 import express from "express";
 import { createUser, getUserByEmail, getUserBySessionToken } from "../DB/User.model.ts";
 import { authentication, random } from "../helpers/index.ts";
-
 export const register = async (req: express.Request, res: express.Response) => {
 	try {
 		const { email, password, username } = req.body;
@@ -17,7 +16,7 @@ export const register = async (req: express.Request, res: express.Response) => {
 				password: authentication(salt, password)
 			}
 		})
-		user.authentication = undefined;
+		// user.authentication = undefined;
 		res.status(200).json(user).end();
 	} catch (error) {
 		console.log(error.message)
@@ -43,11 +42,17 @@ export const login = async (req: express.Request, res: express.Response) => {
 		res.sendStatus(400).json({ message: error.message });
 	}
 };
-
 export const logout = async (req: express.Request, res: express.Response) => {
 	try {
-		res.status(400).json({ message: "User LogOut succesfully" })
+		const sessionToken = req.cookies["ABHAY"];
+		if (!sessionToken) return res.status(400).json({ message: "No token" })
+		const user = await getUserBySessionToken(sessionToken);
+		user.authentication.sessionToken = undefined;
+		await user.save()
+		res.clearCookie("ABHAY");
+		res.status(200).json({ message: "User LogOut succesfully" })
 	} catch (error) {
-
+		console.log(error.message);
+		res.status(400).json({ message: error.message || "Internal Server Error" })
 	}
 };

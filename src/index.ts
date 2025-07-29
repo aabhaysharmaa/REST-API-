@@ -11,15 +11,13 @@ import connectDB from "./DB/connectDB.ts";
 const app = express();
 app.use(cors({
 	credentials: true,
-})); 
+}));
 app.use(cors({ origin: "http://localhost:8080" }));
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 const server = http.createServer(app);
-
-
 server.listen(8080, () => {
 	connectDB();
 	console.log(`Server was running on http://localhost:8080/`);

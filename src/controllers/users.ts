@@ -23,12 +23,21 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
 	}
 }
 
-export const updateuser = async (req: express.Request, res: express.Response) => {
+export const updateUser = async (req: express.Request, res: express.Response) => {
 	try {
-
+		const { id } = req.params
+		if (!id) return res.status(400).json({ message: "Only user can update this route" })
+		const { username, email } = req.body;
+		if (!username || !email) {
+			return res.sendStatus(400)
+		}
+		const user = await getUserById(id);
+		user.username = username;
+		user.email = email;
+		await user.save();
+		return res.status(200).json({ message: "User updated sucessfully" })
 	} catch (error) {
 		console.log(error)
 	}
-
 }
 
