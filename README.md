@@ -31,9 +31,9 @@ A simple and secure REST-based authentication system built from scratch using No
 
 npm install
 
-### 3. Create a `.env` File
+# 3. Create a `.env` File
 
-## In the project root, create a file named `.env` and add
+# In the project root, create a file named `.env` and add
 
 PORT=your_port
 MONGO_URI=Mongo-Atlas-Url
@@ -48,7 +48,7 @@ COOKIE_SECRET=your_cookie_secret
 | POST   | /auth/register   | Register a new user  |
 | POST   | /auth/login      | Log in the user      |
 | POST   | /auth/logout     | Log out the user     |
-| GET    | /profile         | Access protected data|
+| GET    | /uers            | Access all users|
 
 ---
 
